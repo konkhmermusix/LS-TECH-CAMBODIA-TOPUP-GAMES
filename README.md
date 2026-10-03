@@ -1,4 +1,4 @@
-# 🎮 LS TECH CAMBODIA — GAME TOP-UP WEB APPLICATION
+# LS TECH CAMBODIA — GAME TOP-UP WEB APPLICATION
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
@@ -8,46 +8,6 @@
 [![ABA KHQR](https://img.shields.io/badge/ABA-PayWay_KHQR-005C8A?style=for-the-badge)](https://www.ababank.com)
 
 A production-ready, high-performance **Game Top-Up Web Application** built specifically for Cambodia. Customers can purchase diamonds for **Free Fire** and **Mobile Legends: Bang Bang** using official **ABA KHQR** payments with instant, automated top-up delivery.
-
----
-
-## 🌟 Key Features
-
-### 🛒 1. Customer Experience (Guest Checkout)
-* **Zero Registration Friction:** 100% Guest Checkout. Customers do not need an account, password, or registration to top up.
-* **Instant Player ID Verification:** Real-time client & server validation against game server schemas (Player ID + Zone ID).
-* **Official ABA KHQR Payment:**
-  * Dynamic EMVCo-compliant KHQR payload generation.
-  * Direct ABA Mobile deep-linking (`abamobile://khqr/...`) for mobile users.
-  * Dual verification strategy: High-frequency server polling + Signed ABA PayWay Webhook (HMAC SHA-512).
-  * Built-in **Sandbox Simulation Tool** allowing one-click payment testing without real bank funds.
-* **Live Order Tracking & Digital Receipt:** Order status polling with real-time feedback (Pending $\rightarrow$ Paid $\rightarrow$ Processing $\rightarrow$ Completed).
-
-### ⚡ 2. Automated Top-Up Engine
-* **Provider-Agnostic Architecture (`TopUpProviderInterface`):**
-  * `MockTopUpProvider`: Safe local sandbox simulation with realistic transaction payloads and error simulation (`fail` / `9999999999`).
-  * `AuthorizedApiTopUpProvider`: Ready for live connection to authorized B2B aggregators (UniPin, Codapay, Lapakgaming, etc.).
-* **Queue & Retry Management:** Asynchronous dispatch via `ProcessTopUpJob` with transaction tracking, attempt counters, and manual retry options.
-* **Security & Pricing Guard:** Client-submitted prices and discounts are strictly discarded. All amounts are calculated server-side from database records.
-
-### 🎨 3. iOS-Inspired Liquid Glass Design
-* **Modern Aesthetic:** Translucent frosted glass panels (`backdrop-blur`), subtle gradients, soft shadows, and micro-animations.
-* **Official Google Typography:** Powered by **Google Sans**, **Google Sans Text**, and **Kantumruy Pro** for Khmer.
-* **3-Way Theme Switcher:** Light ☀️ / Dark 🌙 / System Auto 💻 with a bulletproof zero-flash script and Tailwind v4 `@custom-variant dark`.
-* **Smart Scroll-To-Top Button:** Automatically reveals only when the user scrolls upwards and hides when scrolling down.
-* **18 Reusable Blade Components:** Clean, modular components (`button`, `input`, `card`, `modal`, `badge`, `table`, etc.).
-
-### 🛡️ 4. Executive Admin Back-Office (15 Modules)
-* **Security:** Protected by custom `admin` middleware, login rate limiting (5 attempts/min), session fixation protection, and audit logging.
-* **Executive Dashboard:** Live metrics for Total Orders, Revenue (KHR), Success Rate %, Provider Balance, and recent activity.
-* **Order Management:** Filter by status, search by order number/UID, view full receipts, manually retry failed top-ups, or cancel orders.
-* **Catalog Management:** Full CRUD for Games (Free Fire, MLBB) and Diamond Packages (pricing, bonus, provider codes).
-* **Payment & Audit Logs:** Detailed inspection of KHQR transactions and external top-up API payloads.
-* **Customer Directory:** Track spending history and purchase frequency by Player ID.
-* **Promotion Engine:** Create discount vouchers (fixed or percentage) with validity dates and usage limits.
-* **Reports & Settings:** Exportable analytics and system configurations (active provider toggle, notification channels).
-
----
 
 ## 🛠️ Technology Stack
 
@@ -62,9 +22,7 @@ A production-ready, high-performance **Game Top-Up Web Application** built speci
 | **Payment Gateway** | ABA PayWay KHQR (HMAC SHA-512) |
 | **QR Code Engine** | QRCode.js (Client-side fast rendering) |
 
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 Make sure your development machine has:
@@ -72,8 +30,6 @@ Make sure your development machine has:
 * **Composer** (v2+)
 * **Node.js** (v18+ or v20+) & **NPM**
 * **MySQL** (v8.0+ or MariaDB 10.4+)
-
----
 
 ### Step-by-Step Installation
 
@@ -141,17 +97,15 @@ php artisan serve
 
 The web application is now live at **`http://127.0.0.1:8000`**!
 
----
 
-## 🔐 Default Admin Credentials
+## Default Admin Credentials
 
 | Role | Email | Password | Access URL |
 | :--- | :--- | :--- | :--- |
 | **Super Admin** | `admin@lstech.com` | `Admin@123456` | `http://127.0.0.1:8000/admin/login` |
 
----
 
-## 🧪 Testing Credentials & Scenarios
+## Testing Credentials & Scenarios
 
 ### Customer Top-Up Test Data
 * **Free Fire:**
@@ -168,9 +122,8 @@ The web application is now live at **`http://127.0.0.1:8000`**!
 2. Enter your test Player ID and click **Checkout**.
 3. On the payment page, click the **"Simulate Sandbox Payment (Success)"** button to immediately simulate bank payment confirmation and top-up execution without scanning with real money.
 
----
 
-## ⚙️ Payment & Top-Up Configuration
+## Payment & Top-Up Configuration
 
 In `.env`:
 
@@ -197,9 +150,7 @@ TOPUP_PROVIDER_API_KEY=your_api_key
 TOPUP_PROVIDER_SECRET=your_api_secret
 ```
 
----
-
-## 🧪 Running Automated Tests
+## Running Automated Tests
 
 Run the full suite of automated feature and unit tests:
 
@@ -219,9 +170,7 @@ php artisan test
   * Unauthenticated guest redirection
   * Inactive user login blocking
 
----
-
-## 📁 Project Directory Structure
+## Project Directory Structure
 
 ```text
 backend/
@@ -257,17 +206,14 @@ backend/
     └── Feature/                # Automated Feature Tests
 ```
 
----
-
-## 🔒 Security Best Practices Implemented
+## Security Best Practices Implemented
 
 * **Strict Price Integrity:** Pricing is resolved strictly from `game_packages` in the database; user-supplied price parameters in HTTP requests are rejected.
 * **Signed Webhooks:** ABA payment webhooks verify HMAC SHA-512 signatures before updating payment state.
 * **Audit Logging:** Every administrative mutation (game edits, package updates, order cancellations, setting modifications) is logged to `audit_logs` with admin ID, action, IP, and payload diffs.
 * **Brute-Force Protection:** Rate limiting applied to admin authentication attempts (5 per minute per IP).
 
----
 
-## 📄 License
+## License
 
 This software is developed for **LS TECH CAMBODIA**. All rights reserved.
